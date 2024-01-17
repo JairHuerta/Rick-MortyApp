@@ -29,9 +29,9 @@ function getLocations(){
                             card.innerHTML = `
                             <div class="card hoverable-card ${locations[j].id < 50 ? 'bg-success' : locations[j].id > 50 && locations[j].id < 80 ? 'bg-primary' : locations[j].id > 80 ? 'bg-danger': ''} text-white">
                                 <div class="card-body">
-                                    <h5 class="card-title">${locations[j].name}</h5>
-                                    <p class="card-text">${locations[j].dimension}</p>
-                                    <button type="button" class="btn btn-light" data-toggle="modal" data-target="#miModal" onclick="abrirModal('${locations[j].name}', '${locations[j].dimension}', '${residentes}')">Ver Detalles</button>
+                                    <h5 class="card-title">Nombre: ${locations[j].name}</h5>
+                                    <p class="card-text">Dimensión: ${locations[j].dimension}</p>
+                                    <button type="button" class="btn btn-light" data-toggle="modal" data-target="#miModal" onclick="abrirModal('${locations[j].name}', '${locations[j].dimension}', '${residentes}')">Ver Personajes</button>
                                 </div>
                             </div>
                             `;
@@ -78,9 +78,9 @@ function searchLocations(){
                         card.innerHTML = `
                         <div class="card hoverable-card ${locations[j].id < 50 ? 'bg-success' : locations[j].id > 50 && locations[j].id < 80 ? 'bg-primary' : locations[j].id > 80 ? 'bg-danger': ''} text-white">
                             <div class="card-body">
-                                <h5 class="card-title">${locations[j].name}</h5>
-                                <p class="card-text">${locations[j].dimension}</p>
-                                <button type="button" class="btn btn-light" data-toggle="modal" data-target="#miModal" onclick="abrirModal('${locations[j].name}', '${locations[j].dimension}', '${residentes}')">Ver Detalles</button>
+                                <h5 class="card-title">Nombre: ${locations[j].name}</h5>
+                                <p class="card-text">Dimensión: ${locations[j].dimension}</p>
+                                <button type="button" class="btn btn-light" data-toggle="modal" data-target="#miModal" onclick="abrirModal('${locations[j].name}', '${locations[j].dimension}', '${residentes}')">Ver personajes</button>
                             </div>
                         </div>
                         `;
@@ -96,6 +96,11 @@ function searchLocations(){
         contenedorCards.innerHTML = '';
         getLocations()
     }
+}
+
+function buscarPersonajes(){
+    var valorInput = document.getElementById('buscador').value;
+
 }
 
 /** MODAL DE DETALLE DE LOCACIÓN SELECCIONADA */
@@ -127,10 +132,10 @@ function abrirModal(titulo, contenido, residents = []) {
                             <div class="card hoverable-card">
                                 <img src="${characterData.image}" class="card-img-top img-border" alt="...">
                                 <div class="card-body">
-                                    <h5 class="card-title">${characterData.name}</h5>
-                                    <p>${characterData.species}</p>
-                                    <p>${characterData.status}</p>
-                                    <p>${characterData.gender}</p>
+                                    <h5 class="card-title">Nombre: ${characterData.name}</h5>
+                                    <p>Especie: ${characterData.species}</p>
+                                    <p>Estado: ${characterData.status}</p>
+                                    <p>Genero: ${characterData.gender}</p>
                                 </div>
                             </div>
                             <p class="text-center mb-0"><b>Episodios</b></p>
@@ -168,22 +173,5 @@ function abrirModal(titulo, contenido, residents = []) {
         }
     }
 }
-{/* <li id="episodios">${episodesList(characterData.episode)}</li> */}
-
-
-// async function episodesList(episode){
-//     return new Promise(async function(resolve, reject){
-//         if(episode){
-//             for(let ep = 0; ep < 2; ep++){
-//                 console.log(episode[ep])
-//                 await fetch(episode[ep])
-//                 .then(response => {
-//                     console.log(response.results)
-//                 })
-//                 .catch(err => console.log(err))
-//             }
-//         }
-//     })
-// }
 
 // getLocations()
