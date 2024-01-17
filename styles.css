@@ -3,12 +3,25 @@
     padding: 0;
 }
 header{
-    background-color: rgb(93, 41, 117);
+    background-color: #3f698d;
     color: aliceblue;
     font-size: 22px;
     font-weight: bolder;
     padding: 8px;
-    
+}
+
+body {
+    margin:0;
+  }
+canvas {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #294258;
+}
+
+.form-control{
+    margin: 10px 10px 10px 10px;
 }
 
 .mouse{
@@ -18,4 +31,4 @@ header{
 .mouse:hover {
     box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
     transform: scale(1.05);
-  }
+}
