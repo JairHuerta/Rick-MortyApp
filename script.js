@@ -27,7 +27,7 @@ function getLocations(){
                             card.className = 'col-md-3';
 
                             card.innerHTML = `
-                            <div class="card hoverable-card ${locations[j].id < 50 ? 'bg-success' : locations[j].id > 50 && locations[j].id < 80 ? 'bg-primary' : locations[j].id > 80 ? 'bg-danger': ''} text-white" style="cursor: pointer;">
+                            <div class="card hoverable-card ${locations[j].id < 50 ? 'bg-success' : locations[j].id > 50 && locations[j].id < 80 ? 'bg-primary' : locations[j].id > 80 ? 'bg-danger': ''} text-white">
                                 <div class="card-body">
                                     <h5 class="card-title">${locations[j].name}</h5>
                                     <p class="card-text">${locations[j].dimension}</p>
@@ -76,11 +76,11 @@ function searchLocations(){
                         card.className = 'col-md-3';
 
                         card.innerHTML = `
-                        <div class="card" style="cursor: pointer;">
+                        <div class="card hoverable-card ${locations[j].id < 50 ? 'bg-success' : locations[j].id > 50 && locations[j].id < 80 ? 'bg-primary' : locations[j].id > 80 ? 'bg-danger': ''} text-white">
                             <div class="card-body">
                                 <h5 class="card-title">${locations[j].name}</h5>
                                 <p class="card-text">${locations[j].dimension}</p>
-                                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#miModal" onclick="abrirModal('${locations[j].name}', '${locations[j].dimension}', '${residentes}')">Ver Detalles</button>
+                                <button type="button" class="btn btn-light" data-toggle="modal" data-target="#miModal" onclick="abrirModal('${locations[j].name}', '${locations[j].dimension}', '${residentes}')">Ver Detalles</button>
                             </div>
                         </div>
                         `;
@@ -124,8 +124,8 @@ function abrirModal(titulo, contenido, residents = []) {
                             
                             /** LISTA DE EPISODIOS */
                             card.innerHTML = `
-                            <div class="card">
-                                <img src="${characterData.image}" class="card-img-top" alt="...">
+                            <div class="card hoverable-card">
+                                <img src="${characterData.image}" class="card-img-top img-border" alt="...">
                                 <div class="card-body">
                                     <h5 class="card-title">${characterData.name}</h5>
                                     <p>${characterData.species}</p>

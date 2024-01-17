@@ -20,20 +20,21 @@ canvas {
     background: #294258;
 }
 
+.img-border{
+    border-radius: 5px;
+}
+
 .form-control{
     margin: 10px 10px 10px 10px;
-}
-
-.mouse{
-    cursor: pointer;
-}
-
-.mouse:hover {
-    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
-    transform: scale(1.05);
 }
 
 .hoverable-card:hover {
     transform: scale(1.05); /* Aumentar el tamaño de la card al hacer hover */
     transition: transform 0.3s ease; /* Agregar una transición suave */
-  }
+    box-shadow: 0 4px 8px rgba(14, 14, 14, 0.719);
+    background-color: #dfdfdf;
+}
+
+.inputtext{
+    border-radius: 25rem;
+}
