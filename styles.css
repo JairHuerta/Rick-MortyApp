@@ -1,0 +1,12 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+header{
+    background-color: rgb(93, 41, 117);
+    color: aliceblue;
+    font-size: 22px;
+    font-weight: bolder;
+    padding: 8px;
+    
+}
