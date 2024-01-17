@@ -32,3 +32,8 @@ canvas {
     box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
     transform: scale(1.05);
 }
+
+.hoverable-card:hover {
+    transform: scale(1.05); /* Aumentar el tamaño de la card al hacer hover */
+    transition: transform 0.3s ease; /* Agregar una transición suave */
+  }

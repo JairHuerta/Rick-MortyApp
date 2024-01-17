@@ -27,11 +27,11 @@ function getLocations(){
                             card.className = 'col-md-3';
 
                             card.innerHTML = `
-                            <div class="card" style="cursor: pointer;">
+                            <div class="card hoverable-card ${locations[j].id < 50 ? 'bg-success' : locations[j].id > 50 && locations[j].id < 80 ? 'bg-primary' : locations[j].id > 80 ? 'bg-danger': ''} text-white" style="cursor: pointer;">
                                 <div class="card-body">
                                     <h5 class="card-title">${locations[j].name}</h5>
                                     <p class="card-text">${locations[j].dimension}</p>
-                                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#miModal" onclick="abrirModal('${locations[j].name}', '${locations[j].dimension}', '${residentes}')">Ver Detalles</button>
+                                    <button type="button" class="btn btn-light" data-toggle="modal" data-target="#miModal" onclick="abrirModal('${locations[j].name}', '${locations[j].dimension}', '${residentes}')">Ver Detalles</button>
                                 </div>
                             </div>
                             `;
@@ -116,9 +116,13 @@ function abrirModal(titulo, contenido, residents = []) {
                             return alert('Ha ocurrido un error con la API, intentalo más tarde.')
                         } else {
                             var characterData = response.data;
+                            // episodesList(characterData.episode)
+                            
                             var card = document.createElement('div');
                             card.className = 'col-md-4';
-                
+                            /** LISTA DE EPISODIOS */
+                            
+                            /** LISTA DE EPISODIOS */
                             card.innerHTML = `
                             <div class="card">
                                 <img src="${characterData.image}" class="card-img-top" alt="...">
@@ -129,7 +133,30 @@ function abrirModal(titulo, contenido, residents = []) {
                                     <p>${characterData.gender}</p>
                                 </div>
                             </div>
+                            <p class="text-center mb-0"><b>Episodios</b></p>
                             `;
+                            const text = document.createElement('p');
+                            text.textContent = "Episodios"
+                            const lista = document.createElement('ul');
+                            lista.className = 'list-group mb-5';
+                            var i = 0;
+                            characterData.episode.forEach((element) => {
+                                fetch(element)
+                                .then(response => response.json())
+                                .then(data => {
+                                    if(i === 3) {
+
+                                    }  else {
+                                        i++
+                                        const listItem = document.createElement('li');
+                                        listItem.className = 'list-group-item';
+                                        listItem.textContent = data.name;
+                                        lista.appendChild(listItem);
+                                    }
+                                })
+                                .catch(err => console.log(err))
+                            })
+                            card.appendChild(lista);
                             fila.appendChild(card);
                         }
                     })
@@ -143,5 +170,22 @@ function abrirModal(titulo, contenido, residents = []) {
         }
     }
 }
+{/* <li id="episodios">${episodesList(characterData.episode)}</li> */}
+
+
+// async function episodesList(episode){
+//     return new Promise(async function(resolve, reject){
+//         if(episode){
+//             for(let ep = 0; ep < 2; ep++){
+//                 console.log(episode[ep])
+//                 await fetch(episode[ep])
+//                 .then(response => {
+//                     console.log(response.results)
+//                 })
+//                 .catch(err => console.log(err))
+//             }
+//         }
+//     })
+// }
 
 getLocations()
