@@ -19,6 +19,7 @@ function getLocations(){
                     searchlist = locations;
                     var contenedorCards = document.getElementById('itemcards');
                     for (var i = 0; i < locations.length; i += cardsPorFila) {
+                    var residentes = locations[i].residents
                     var fila = document.createElement('div');
                     fila.className = 'row mb-4';
                     for (var j = i; j < i + cardsPorFila && j < locations.length; j++) {
@@ -26,14 +27,16 @@ function getLocations(){
                         card.className = 'col-md-3';
 
                         card.innerHTML = `
-                        <div class="card">
+                        <div class="card" style="cursor: pointer;">
                             <div class="card-body">
                                 <h5 class="card-title">${locations[j].name}</h5>
                                 <p class="card-text">${locations[j].dimension}</p>
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#miModal" onclick="abrirModal('${locations[j].name}', '${locations[j].dimension}')">Ver Detalles</button>
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#miModal" onclick="abrirModal('${locations[j].name}', '${locations[j].dimension}', '${residentes}')">Ver Detalles</button>
                             </div>
                         </div>
                         `;
+                        // <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#miModal" onclick="abrirModal('${locations[j].name}', '${locations[j].dimension}', '${residentes}')">Ver Detalles</button>
+                        
                         fila.appendChild(card);
                     }
                     contenedorCards.appendChild(fila);
@@ -65,24 +68,26 @@ function finddata(){
             var contenedorCards = document.getElementById('itemcards');
 
             for (var i = 0; i < resultadosFiltrados.length; i += cardsPorFila) {
-            var fila = document.createElement('div');
-            fila.className = 'row mb-4';
+                var residentes = resultadosFiltrados[i].residents
+                var fila = document.createElement('div');
+                fila.className = 'row mb-4';
 
-            for (var j = i; j < i + cardsPorFila && j < resultadosFiltrados.length; j++) {
-                var card = document.createElement('div');
-                card.className = 'col-md-3';
+                for (var j = i; j < i + cardsPorFila && j < resultadosFiltrados.length; j++) {
+                    var card = document.createElement('div');
+                    card.className = 'col-md-3';
 
-                card.innerHTML = `
-                <div class="card">
-                    <div class="card-body">
-                    <h5 class="card-title">${resultadosFiltrados[j].name}</h5>
-                    <p class="card-text">${resultadosFiltrados[j].dimension}</p>
+                    card.innerHTML = `
+                    <div class="card" style="cursor: pointer;">
+                        <div class="card-body">
+                            <h5 class="card-title">${locations[j].name}</h5>
+                            <p class="card-text">${locations[j].dimension}</p>
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#miModal" onclick="abrirModal('${resultadosFiltrados[j].name}', '${resultadosFiltrados[j].dimension}', '${residentes}')">Ver Detalles</button>
+                        </div>
                     </div>
-                </div>
-                `;
-                fila.appendChild(card);
-            }
-            contenedorCards.appendChild(fila);
+                    `;
+                    fila.appendChild(card);
+                }
+                contenedorCards.appendChild(fila);
             }
             // ``
             document.getElementById("itemcards").innerHTML = locationsfinal;
@@ -103,12 +108,43 @@ function finddata(){
 }
 
 /** AÚN NO PROBADO - BORRADOR */
-function abrirModal(titulo, contenido) {
-    var modalContenido = document.getElementById('modalContenido');
-    modalContenido.innerHTML = `
-      <h5>${titulo}</h5>
-      <p>${contenido}</p>
-    `;
+function abrirModal(titulo, contenido, residents = []) {
+    var residentesLocalidad = []
+    residentesLocalidad = residents.split(',')
+    // console.log(residentesLocalidad)
+    var contenedorCards = document.getElementById('characters');
+    for (var i = 0; i < 5; i += cardsPorFila) {
+        var fila = document.createElement('div');
+        fila.className = 'row mb-4';
+        for (var j = i; j < i + cardsPorFila && j < 5; j++) {
+            axios.get(residentesLocalidad[j])
+                .then(response => {
+                    if(!response.status == 200){
+                        return alert('Ha ocurrido un error con la API, intentalo más tarde.')
+                    } else {
+                        var characterData = response.data;
+                        console.log(characterData)
+                        var card = document.createElement('div');
+                        card.className = 'col-md-4';
+            
+                        card.innerHTML = `
+                        <div class="card">
+                            <img src="${characterData.image}" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title">${characterData.name}</h5>
+                                <p>${characterData.species}</p>
+                                <p>${characterData.status}</p>
+                                <p>${characterData.gender}</p>
+                            </div>
+                        </div>
+                        `;
+                        fila.appendChild(card);
+                    }
+                })
+
+        }
+        contenedorCards.appendChild(fila);
+    }
 }
 
 getLocations()
