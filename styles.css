@@ -16,8 +16,8 @@ body {
 canvas {
     position: absolute;
     width: 100%;
-    height: 100%;
-    background: #294258;
+    height: 110%;
+    background: #172430;
 }
 
 .img-border{
@@ -33,8 +33,4 @@ canvas {
     transition: transform 0.3s ease; /* Agregar una transición suave */
     box-shadow: 0 4px 8px rgba(14, 14, 14, 0.719);
     background-color: #dfdfdf;
-}
-
-.inputtext{
-    border-radius: 25rem;
 }

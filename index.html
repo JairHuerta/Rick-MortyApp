@@ -13,7 +13,11 @@
 <body>
   <header>
     <div class="text-center">
-      Rick & Morty APP
+      <img src="./images/Rick_and_Morty.svg.png" width="350" alt="">
+    </div>
+    <div class="text-center">
+      <p class="mb-0">Buscador de locaciones y personajes</p>
+      <small>Comienza a escribir una locación para ver a tus personajes favoritos.</small>
     </div>
   </header>
   <canvas id="space">
@@ -21,13 +25,13 @@
   </canvas>
     <!-- CONTENEDOR CON EL INPUT BUSCADOR DE LOCACIONES -->
     <div class="container">
-      <div class="row align-items-center">
+      <div class="row align-items-center mt-5">
         <div class="col">
           
         </div>
         <div class="col">
           <div class="input-group flex-nowrap">
-            <input type="text" id="buscador" class="rounded-pill form-control" placeholder="Buscador" onchange="searchLocations()" aria-label="Username" aria-describedby="addon-wrapping">
+            <input type="text" id="buscador" class="rounded-pill form-control" placeholder="Escribe una locación..." onchange="searchLocations()" aria-label="Username" aria-describedby="addon-wrapping">
           </div>
         </div>
         <div class="col">

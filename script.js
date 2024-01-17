@@ -135,8 +135,6 @@ function abrirModal(titulo, contenido, residents = []) {
                             </div>
                             <p class="text-center mb-0"><b>Episodios</b></p>
                             `;
-                            const text = document.createElement('p');
-                            text.textContent = "Episodios"
                             const lista = document.createElement('ul');
                             lista.className = 'list-group mb-5';
                             var i = 0;
@@ -188,4 +186,4 @@ function abrirModal(titulo, contenido, residents = []) {
 //     })
 // }
 
-getLocations()
+// getLocations()
