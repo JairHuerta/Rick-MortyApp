@@ -5,8 +5,8 @@ var searchlist = [];
 var cardsPorFila = 4;
 
 /** ARROJADOR INICIAL DE LOCACIONES */
-function getLocations(){
-    axios.get(apiUrl)
+async function getLocations(){
+    await axios.get(apiUrl)
         .then(response => {/** RESPUESTA EXITOSA DE API */
             // console.log('Datos de la API:', response);
             if(!response.status == 200){
@@ -52,12 +52,12 @@ function getLocations(){
 }
 
 /** BUSCADOR DE LOCACIONES ACORDE A INFORMACIÓN INGRESADA DESDE INPUT TEXT */
-function searchLocations(){
+async function searchLocations(){
     var valorInput = document.getElementById('buscador').value;
     if(valorInput.trim()){
         const apiUrl = `https://rickandmortyapi.com/api/location/?name=${valorInput}`;
 
-        fetch(apiUrl)
+        await fetch(apiUrl)
             .then(response => response.json())
             .then(data => {
                 var locations = [];
@@ -104,7 +104,7 @@ function buscarPersonajes(){
 }
 
 /** MODAL DE DETALLE DE LOCACIÓN SELECCIONADA */
-function abrirModal(titulo, contenido, residents = []) {
+async function abrirModal(titulo, contenido, residents = []) {
     var residentesLocalidad = []
     residentesLocalidad = residents.split(',')
     // console.log(residentesLocalidad)
@@ -115,7 +115,7 @@ function abrirModal(titulo, contenido, residents = []) {
         fila.className = 'row mb-4';
         if(residentesLocalidad.length > 0){
             for (var j = i; j < i + cardsPorFila && j < 5; j++) {
-                axios.get(residentesLocalidad[j])
+                await axios.get(residentesLocalidad[j])
                     .then(response => {
                         if(!response.status == 200){
                             return alert('Ha ocurrido un error con la API, intentalo más tarde.')
