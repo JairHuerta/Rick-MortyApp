@@ -52,28 +52,31 @@ function getLocations(){
 
 function finddata(){
     var valorInput = document.getElementById('buscador').value;
-    getLocations()
+    // getLocations()
     console.log(valorInput.trim())
     if(valorInput.trim()){
+        var resultadosFiltrados = searchlist.filter(function(elemento) {
+            return elemento.name.includes(valorInput);
+          });
         console.log("hay data, continua: ",valorInput);
-        searchlist = searchlist.filter(x=>x.name == valorInput);
-        console.log(searchlist)
-        if(searchlist.length > 0){
+        // searchlist = searchlist.filter(x=>x.name == valorInput);
+        console.log(resultadosFiltrados)
+        if(resultadosFiltrados.length > 0){
             var contenedorCards = document.getElementById('itemcards');
 
-            for (var i = 0; i < searchlist.length; i += cardsPorFila) {
+            for (var i = 0; i < resultadosFiltrados.length; i += cardsPorFila) {
             var fila = document.createElement('div');
             fila.className = 'row mb-4';
 
-            for (var j = i; j < i + cardsPorFila && j < searchlist.length; j++) {
+            for (var j = i; j < i + cardsPorFila && j < resultadosFiltrados.length; j++) {
                 var card = document.createElement('div');
                 card.className = 'col-md-3';
 
                 card.innerHTML = `
                 <div class="card">
                     <div class="card-body">
-                    <h5 class="card-title">${searchlist[j].name}</h5>
-                    <p class="card-text">${searchlist[j].dimension}</p>
+                    <h5 class="card-title">${resultadosFiltrados[j].name}</h5>
+                    <p class="card-text">${resultadosFiltrados[j].dimension}</p>
                     </div>
                 </div>
                 `;
@@ -84,7 +87,7 @@ function finddata(){
             // ``
             document.getElementById("itemcards").innerHTML = locationsfinal;
         } else {
-            getLocations()
+            // getLocations()
 
             if(searchlist.length == 0){
                 var message = '<li>No se ha podido recuperar la lista de locaciones.</li>';
