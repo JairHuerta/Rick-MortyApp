@@ -98,71 +98,74 @@ async function searchLocations(){
     }
 }
 
-function buscarPersonajes(){
-    var valorInput = document.getElementById('buscador').value;
-
-}
-
 /** MODAL DE DETALLE DE LOCACIÓN SELECCIONADA */
-async function abrirModal(titulo, contenido, residents = []) {
+async function abrirModal(titulo, contenido, residents) {
     var residentesLocalidad = []
-    residentesLocalidad = residents.split(',')
+    residentesLocalidad = residents.includes(',')? residents.split(',') : residents
     // console.log(residentesLocalidad)
     var contenedorCards = document.getElementById('characters');
-    contenedorCards.innerHTML = '';
+    contenedorCards.innerHTML = ``;
     for (var i = 0; i < 5; i += cardsPorFila) {
         var fila = document.createElement('div');
         fila.className = 'row mb-4';
         if(residentesLocalidad.length > 0){
+            console.log(residentesLocalidad)
+            var cr = 0;
             for (var j = i; j < i + cardsPorFila && j < 5; j++) {
-                await axios.get(residentesLocalidad[j])
+                console.log(residentesLocalidad[cr])
+                await axios.get(residentesLocalidad[cr])
                     .then(response => {
-                        if(!response.status == 200){
+                        if(!response.status === 200){
                             return alert('Ha ocurrido un error con la API, intentalo más tarde.')
                         } else {
-                            var characterData = response.data;
-                            // episodesList(characterData.episode)
-                            
-                            var card = document.createElement('div');
-                            card.className = 'col-md-4';
-                            /** LISTA DE EPISODIOS */
-                            
-                            /** LISTA DE EPISODIOS */
-                            card.innerHTML = `
-                            <div class="card hoverable-card">
-                                <img src="${characterData.image}" class="card-img-top img-border" alt="...">
-                                <div class="card-body">
-                                    <h5 class="card-title">Nombre: ${characterData.name}</h5>
-                                    <p>Especie: ${characterData.species}</p>
-                                    <p>Estado: ${characterData.status}</p>
-                                    <p>Genero: ${characterData.gender}</p>
+                            if(!response.data){
+                            } else{
+                                var characterData = response.data;
+                                
+                                var card = document.createElement('div');
+                                card.innerHTML=``;
+                                card.className = 'col-md-4';
+                                card.innerHTML = `
+                                <div class="card hoverable-card">
+                                    <img src="${characterData.image}" class="card-img-top img-border" alt="...">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Nombre: ${characterData.name}</h5>
+                                        <p>Especie: ${characterData.species}</p>
+                                        <p>Estado: ${characterData.status}</p>
+                                        <p>Genero: ${characterData.gender}</p>
+                                    </div>
                                 </div>
-                            </div>
-                            <p class="text-center mb-0"><b>Episodios</b></p>
-                            `;
-                            const lista = document.createElement('ul');
-                            lista.className = 'list-group mb-5';
-                            var i = 0;
-                            characterData.episode.forEach((element) => {
-                                fetch(element)
-                                .then(response => response.json())
-                                .then(data => {
-                                    if(i === 3) {
+                                <p class="text-center mb-0"><b>Episodios</b></p>
+                                `;
+                                const lista = document.createElement('ul');
+                                lista.className = 'list-group mb-5';
+                                var i = 0;
+                                if(characterData.episode){
+                                    characterData.episode.forEach((element) => {
+                                        fetch(element)
+                                        .then(response => response.json())
+                                        .then(data => {
+                                            if(i === 3) {
+        
+                                            }  else {
+                                                i++
+                                                const listItem = document.createElement('li');
+                                                listItem.className = 'list-group-item';
+                                                listItem.textContent = data.name;
+                                                lista.appendChild(listItem);
+                                            }
+                                        })
+                                        .catch(err => console.log(err))
+                                    })
+                                    card.appendChild(lista);
+                                    fila.appendChild(card);
+                                } else {
 
-                                    }  else {
-                                        i++
-                                        const listItem = document.createElement('li');
-                                        listItem.className = 'list-group-item';
-                                        listItem.textContent = data.name;
-                                        lista.appendChild(listItem);
-                                    }
-                                })
-                                .catch(err => console.log(err))
-                            })
-                            card.appendChild(lista);
-                            fila.appendChild(card);
+                                }
+                            }
+                        cr++;
                         }
-                    })
+                    }).catch(err=>console.log(err))
     
             }
             contenedorCards.appendChild(fila);
